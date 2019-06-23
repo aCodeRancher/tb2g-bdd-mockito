@@ -18,6 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.atMost;
 
 @ExtendWith(MockitoExtension.class)
 class VisitSDJpaServiceTest {
@@ -92,5 +93,12 @@ class VisitSDJpaServiceTest {
 
         //then
         then(visitRepository).should().deleteById(anyLong());
+    }
+
+    @Test
+    void deleteByIdTwice(){
+        service.deleteById(1L);
+        service.deleteById(1L);
+        then(visitRepository).should (atMost(2)).deleteById(1L);
     }
 }
