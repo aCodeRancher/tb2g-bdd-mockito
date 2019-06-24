@@ -24,7 +24,7 @@ class OwnerControllerTest {
     private static final String OWNERS_CREATE_OR_UPDATE_OWNER_FORM = "owners/createOrUpdateOwnerForm";
     private static final String REDIRECT_OWNERS_5 = "redirect:/owners/5";
 
-    @Mock
+    @Mock (lenient = false)
     OwnerService ownerService;
 
     @Mock
@@ -104,12 +104,13 @@ class OwnerControllerTest {
         //when
         String viewName = controller.processFindForm(owner, bindingResult, null);
 
-        verifyNoMoreInteractions(ownerService);
+       verifyNoMoreInteractions(ownerService);
 
         //then
         assertThat("%DontFindMe%").isEqualToIgnoringCase(stringArgumentCaptor.getValue());
         assertThat("owners/findOwners").isEqualToIgnoringCase(viewName);
         verifyZeroInteractions(model);
+
     }
 
     @Test
