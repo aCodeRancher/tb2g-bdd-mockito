@@ -3,6 +3,7 @@ package guru.springframework.sfgpetclinic.controllers;
 import guru.springframework.sfgpetclinic.fauxspring.BindingResult;
 import guru.springframework.sfgpetclinic.model.Owner;
 import guru.springframework.sfgpetclinic.services.OwnerService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,11 +27,20 @@ class OwnerControllerTest {
     @Mock
     BindingResult bindingResult;
 
+    @Mock
+    Owner owner ;
+
+
+    @BeforeEach
+   void setUp(){
+       owner = new Owner(5L, "John", "Doe");
+   }
+
     @Test
     void processCreationFormWithError() {
 
         given(bindingResult.hasErrors()).willReturn(true);
-        Owner owner = new Owner(1L, "John", "Doe");
+
         String errorMessage = ownerController.processCreationForm(owner, bindingResult);
         assertThat(errorMessage.equals("owners/createOrUpdateOwnerForm"));
 
@@ -38,7 +48,7 @@ class OwnerControllerTest {
 
     @Test
     void processCreationFormWithoutError(){
-        Owner owner = new Owner(5L,"John", "Doe");
+
         given(bindingResult.hasErrors()).willReturn(false);
         given(ownerService.save(owner)).willReturn(owner);
         String output = ownerController.processCreationForm(owner, bindingResult);
