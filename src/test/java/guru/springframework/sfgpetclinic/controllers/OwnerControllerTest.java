@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -50,7 +51,7 @@ class OwnerControllerTest {
     void processCreationFormWithoutError(){
 
         given(bindingResult.hasErrors()).willReturn(false);
-        given(ownerService.save(owner)).willReturn(owner);
+        given(ownerService.save(any())).willReturn(owner);
         String output = ownerController.processCreationForm(owner, bindingResult);
         assertTrue(output.equalsIgnoreCase("redirect:/owners/5"));
         assertThat(output).isEqualTo("redirect:/owners/5");
