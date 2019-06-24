@@ -24,7 +24,7 @@ class OwnerControllerTest {
     private static final String OWNERS_CREATE_OR_UPDATE_OWNER_FORM = "owners/createOrUpdateOwnerForm";
     private static final String REDIRECT_OWNERS_5 = "redirect:/owners/5";
 
-    @Mock (lenient = false)
+    @Mock
     OwnerService ownerService;
 
     @Mock
@@ -39,7 +39,7 @@ class OwnerControllerTest {
     @Captor
     ArgumentCaptor<String> stringArgumentCaptor;
 
-    @BeforeEach
+
     void setUp() {
         given(ownerService.findAllByLastNameLike(stringArgumentCaptor.capture()))
                 .willAnswer(invocation -> {
@@ -64,6 +64,7 @@ class OwnerControllerTest {
 
     @Test
     void processFindFormWildcardFound() {
+        setUp();
         //given
         Owner owner = new Owner(1l, "Joe", "FindMe");
         InOrder inOrder = inOrder(ownerService, model);
@@ -83,6 +84,7 @@ class OwnerControllerTest {
 
     @Test
     void processFindFormWildcardStringAnnotation() {
+        setUp();
         //given
         Owner owner = new Owner(1l, "Joe", "Buck");
 
@@ -98,6 +100,7 @@ class OwnerControllerTest {
 
     @Test
     void processFindFormWildcardNotFound() {
+        setUp();
         //given
         Owner owner = new Owner(1l, "Joe", "DontFindMe");
 
