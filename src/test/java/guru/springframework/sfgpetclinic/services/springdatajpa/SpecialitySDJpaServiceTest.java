@@ -29,7 +29,7 @@ class SpecialitySDJpaServiceTest {
         Speciality speciality = new Speciality();
 
         service.delete(speciality);
-
+        //add a line test
         verify(specialtyRepository).delete(any(Speciality.class));
     }
 
