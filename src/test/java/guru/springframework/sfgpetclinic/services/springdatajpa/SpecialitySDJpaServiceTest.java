@@ -65,7 +65,7 @@ class SpecialitySDJpaServiceTest {
     void deleteByIdAtMost() {
         service.deleteById(1l);
         service.deleteById(1l);
-
+         //add a test line
         verify(specialtyRepository, atMost(5)).deleteById(1l);
     }
 
